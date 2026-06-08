@@ -1,0 +1,357 @@
+import { useState } from 'react'
+import './landing.css'
+import logo from '../../assets/logo.jpeg'
+
+const categories = [
+  {
+    name: 'Helmets',
+    count: '120+ products',
+    icon: (
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C7.03 2 3 6.03 3 11v3c0 1.1.9 2 2 2h1v-4c0-3.87 3.13-7 7-7s7 3.13 7 7v4h1c1.1 0 2-.9 2-2v-3c0-4.97-4.03-9-9-9zM5 18v2h14v-2H5z"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Motor Oils',
+    count: '80+ products',
+    icon: (
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.5 8.5l-1.5-1.5V5h-2v2H8V5H6v2L4.5 8.5C3.5 9.5 3 10.8 3 12.2V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6.8c0-1.4-.5-2.7-1.5-3.7zM12 18c-1.7 0-3-1.3-3-3s3-6 3-6 3 4.3 3 6-1.3 3-3 3z"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Tires',
+    count: '200+ products',
+    icon: (
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-12c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Gloves',
+    count: '60+ products',
+    icon: (
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14.5 2c-.83 0-1.5.67-1.5 1.5V7h-1V3.5C12 2.67 11.33 2 10.5 2S9 2.67 9 3.5V7H8V4.5C8 3.67 7.33 3 6.5 3S5 3.67 5 4.5v8.45l-2.15-2.15C2.35 10.3 1.5 10.3 1 10.8c-.49.49-.49 1.28 0 1.77L5 16.62V19c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-8.5c0-.83-.67-1.5-1.5-1.5H17V3.5C17 2.67 16.33 2 15.5 2H14.5z"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Jackets',
+    count: '95+ products',
+    icon: (
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16.5 7.5L15 6l-3 3-3-3-1.5 1.5L9 9H5v12h14V9h-4l1.5-1.5zM12 18l-3-3h2v-4h2v4h2l-3 3z"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Accessories',
+    count: '300+ products',
+    icon: (
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+      </svg>
+    ),
+  },
+]
+
+const products = [
+  { id: 1, brand: 'AGV', name: 'K6 S Full-Face Helmet', price: '$389', badge: 'Best Seller' },
+  { id: 2, brand: 'Motul', name: '7100 4T 10W-40 Full Synthetic Oil', price: '$48', badge: 'Sale' },
+  { id: 3, brand: 'Michelin', name: 'Road 6 GT Rear Tyre 180/55', price: '$165', badge: 'New' },
+  { id: 4, brand: 'Alpinestars', name: 'SP-8 v3 Air Leather Gloves', price: '$124', badge: null },
+  { id: 5, brand: 'Dainese', name: 'Tempest 3 D-Dry Jacket', price: '$520', badge: 'Featured' },
+  { id: 6, brand: 'Arai', name: 'RX-7V EVO Full-Face Helmet', price: '$729', badge: null },
+  { id: 7, brand: 'Castrol', name: 'Power1 Racing 4T 10W-50', price: '$42', badge: 'Sale' },
+  { id: 8, brand: 'Oxford', name: 'Chain Lock 8mm x 1.5m', price: '$59', badge: null },
+]
+
+const whyCards = [
+  {
+    title: 'Expert Staff',
+    desc: 'Our team are passionate riders with years of hands-on experience. Real advice you can trust.',
+    icon: <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z"/></svg>,
+  },
+  {
+    title: 'Fast Shipping',
+    desc: 'Orders placed before 3PM ship same day. Get your gear before your next ride.',
+    icon: <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.7 1.3 3 3 3s3-1.3 3-3h6c0 1.7 1.3 3 3 3s3-1.3 3-3h2v-5l-3-4zm-5 8.5c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm-11 0c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zM17 12l2.3 3H13V9h3.5l.5 3z"/></svg>,
+  },
+  {
+    title: 'Genuine Parts',
+    desc: '100% authentic brands only. No imitations, no compromises — your safety is everything.',
+    icon: <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.6 3.8 10.7 9 12 5.2-1.3 9-6.4 9-12V5l-9-4zm-2 16l-4-4 1.4-1.4L10 14.2l6.6-6.6L18 9l-8 8z"/></svg>,
+  },
+  {
+    title: 'Easy Returns',
+    desc: '30-day hassle-free returns. If it doesn\'t fit or you\'re not happy, we\'ll sort it.',
+    icon: <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.3 0 6 2.7 6 6s-2.7 6-6 6-6-2.7-6-6H4c0 4.4 3.6 8 8 8s8-3.6 8-8-3.6-8-8-8z"/></svg>,
+  },
+]
+
+const brands = ['AGV', 'Shoei', 'Arai', 'Dainese', 'Alpinestars', 'Motul', 'Castrol', 'Michelin', 'Bridgestone', 'Oxford', 'Held', 'Rev\'It']
+
+const termsContent = (
+  <div>
+    <h3>1. Acceptance of Terms</h3>
+    <p>By accessing or using the Motorepuestos Mega Mundo website, you agree to be bound by these Terms and Conditions. If you do not agree, please do not use our services.</p>
+    <h3>2. Products & Pricing</h3>
+    <p>All product descriptions and prices are subject to change without notice. We reserve the right to limit quantities and refuse orders at our discretion. Prices shown are inclusive of applicable taxes unless stated otherwise.</p>
+    <h3>3. Orders & Payment</h3>
+    <p>Orders are confirmed once payment is received. We accept major credit/debit cards and bank transfer. All transactions are processed securely. Motorepuestos Mega Mundo shall not be liable for payment processing errors caused by third parties.</p>
+    <h3>4. Shipping & Delivery</h3>
+    <p>Estimated delivery times are provided for guidance only and are not guaranteed. We are not responsible for delays caused by couriers, customs, or events beyond our control. Risk of loss transfers to the buyer upon delivery.</p>
+    <h3>5. Returns & Refunds</h3>
+    <p>Items may be returned within 30 days of receipt in original, unused condition with all packaging intact. Refunds will be issued within 7–10 business days upon receipt and inspection of the returned item. Shipping costs for returns are the buyer's responsibility unless the item is faulty.</p>
+    <h3>6. Warranties</h3>
+    <p>Products are covered by the manufacturer's warranty. Motorepuestos Mega Mundo does not provide additional warranties beyond what the manufacturer offers. Warranty claims must be submitted with proof of purchase.</p>
+    <h3>7. Intellectual Property</h3>
+    <p>All content on this website, including logos, text, images, and graphics, is the property of Motorepuestos Mega Mundo or its licensors and is protected by applicable intellectual property laws. Unauthorized use is prohibited.</p>
+    <h3>8. Limitation of Liability</h3>
+    <p>Motorepuestos Mega Mundo shall not be liable for any indirect, incidental, or consequential damages arising from the use of our products or services. Our total liability shall not exceed the amount paid for the relevant product.</p>
+    <h3>9. Governing Law</h3>
+    <p>These Terms are governed by applicable local laws. Any disputes shall be resolved in the jurisdiction where Motorepuestos Mega Mundo operates.</p>
+    <h3>10. Contact</h3>
+    <p>For questions regarding these Terms and Conditions, please contact us at legal@megamundo.com.</p>
+  </div>
+)
+
+export default function Landing() {
+  const [showTerms, setShowTerms] = useState(false)
+
+  return (
+    <>
+      {/* NAVBAR */}
+      <nav className="navbar">
+        <div className="navbar-logo">
+          <img src={logo} alt="Motorepuestos Mega Mundo" />
+        </div>
+        <ul className="navbar-links">
+          <li><a href="#">Helmets</a></li>
+          <li><a href="#">Tires</a></li>
+          <li><a href="#">Oils</a></li>
+          <li><a href="#">Apparel</a></li>
+          <li><a href="#">Accessories</a></li>
+          <li><a href="#" className="navbar-cta">Shop Now</a></li>
+        </ul>
+      </nav>
+
+      {/* HERO */}
+      <section className="hero">
+        <div className="hero-content">
+          <p className="hero-eyebrow">Todo para tu moto</p>
+          <h1>
+            GEAR UP.<br />
+            RIDE <span>HARD.</span>
+          </h1>
+          <p className="hero-subtitle">
+            Premium motorcycle helmets, oils, tires, and riding gear — everything you need to ride safe and ride fast.
+          </p>
+          <div className="hero-buttons">
+            <a href="#" className="btn-primary">Shop All Products</a>
+            <a href="#" className="btn-secondary">View Catalog</a>
+          </div>
+        </div>
+
+        <div className="hero-image-area">
+          <svg viewBox="0 0 200 200" style={{ width: '60%', maxWidth: 320, fill: 'rgba(255,255,255,0.12)' }}>
+            <circle cx="100" cy="100" r="90" stroke="rgba(255,255,255,0.2)" strokeWidth="3" fill="none"/>
+            <circle cx="100" cy="100" r="60" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="none"/>
+            <circle cx="100" cy="100" r="30" fill="rgba(255,255,255,0.1)"/>
+            <path d="M100 10 L100 190 M10 100 L190 100 M29 29 L171 171 M171 29 L29 171" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
+          </svg>
+          <div className="hero-badge">
+            <span className="hero-badge-num">15+</span>
+            <span className="hero-badge-text">Years of<br/>Service</span>
+          </div>
+        </div>
+      </section>
+
+      {/* STATS */}
+      <div className="stats-bar">
+        <div className="stat-item">
+          <div className="stat-num">5,000+</div>
+          <div className="stat-label">Products</div>
+        </div>
+        <div className="stat-divider" />
+        <div className="stat-item">
+          <div className="stat-num">50+</div>
+          <div className="stat-label">Top Brands</div>
+        </div>
+        <div className="stat-divider" />
+        <div className="stat-item">
+          <div className="stat-num">30K+</div>
+          <div className="stat-label">Happy Riders</div>
+        </div>
+        <div className="stat-divider" />
+        <div className="stat-item">
+          <div className="stat-num">15+</div>
+          <div className="stat-label">Years Selling</div>
+        </div>
+      </div>
+
+      {/* CATEGORIES */}
+      <section className="section categories-section">
+        <p className="section-label">Browse by Category</p>
+        <h2 className="section-title">FIND WHAT YOU <span>NEED</span></h2>
+        <p className="section-subtitle">From full-face helmets to synthetic oils — we stock everything your machine demands.</p>
+        <div className="categories-grid">
+          {categories.map((cat) => (
+            <a key={cat.name} href="#" className="category-card">
+              <div className="category-icon">{cat.icon}</div>
+              <div className="category-name">{cat.name}</div>
+              <div className="category-count">{cat.count}</div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* FEATURED PRODUCTS */}
+      <section className="section">
+        <p className="section-label">Hand-Picked Selection</p>
+        <h2 className="section-title">FEATURED <span>PRODUCTS</span></h2>
+        <p className="section-subtitle">Top-rated gear from the world's most trusted motorcycle brands.</p>
+        <div className="products-grid">
+          {products.map((p) => (
+            <div key={p.id} className="product-card">
+              <div className="product-image">
+                {p.badge && <span className="product-badge">{p.badge}</span>}
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+              </div>
+              <div className="product-info">
+                <div className="product-brand">{p.brand}</div>
+                <div className="product-name">{p.name}</div>
+                <div className="product-footer">
+                  <span className="product-price">{p.price}</span>
+                  <button className="product-add" aria-label="Add to cart">+</button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* WHY US */}
+      <section className="section why-section">
+        <p className="section-label">Why Riders Choose Us</p>
+        <h2 className="section-title">BUILT FOR <span>RIDERS</span></h2>
+        <p className="section-subtitle">We've been serving the moto community for over 15 years. Here's what makes us different.</p>
+        <div className="why-grid">
+          {whyCards.map((w) => (
+            <div key={w.title} className="why-card">
+              <div className="why-icon">{w.icon}</div>
+              <div className="why-title">{w.title}</div>
+              <p className="why-desc">{w.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* BRANDS */}
+      <section className="brands-section">
+        <p className="brands-title">Trusted Brands We Carry</p>
+        <div className="brands-row">
+          {brands.map((b) => (
+            <div key={b} className="brand-pill">{b}</div>
+          ))}
+        </div>
+      </section>
+
+      {/* PROMO BANNER */}
+      <section className="promo-banner">
+        <div className="promo-text">
+          <h2>UP TO 40% OFF<br/>THIS WEEKEND</h2>
+          <p>Flash sale on helmets, oils, and selected apparel. Don't miss it.</p>
+        </div>
+        <a href="#" className="btn-white">Grab the Deal</a>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="footer">
+        <div className="footer-grid">
+          <div className="footer-brand">
+            <img src={logo} alt="Motorepuestos Mega Mundo" />
+            <p className="footer-tagline">
+              Your one-stop shop for premium motorcycle parts, gear, and accessories. Serving passionate riders since 2009.
+            </p>
+            <div className="footer-social">
+              <a href="#" className="social-btn" aria-label="Facebook">
+                <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+              </a>
+              <a href="#" className="social-btn" aria-label="Instagram">
+                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="2"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="rgba(255,255,255,0.7)" strokeWidth="2"/></svg>
+              </a>
+              <a href="#" className="social-btn" aria-label="WhatsApp">
+                <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1s-.8 1-.9 1.2c-.2.2-.3.2-.6.1-.3-.2-1.2-.4-2.3-1.4-.8-.7-1.4-1.6-1.6-1.9-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.2-.5 0-.2-.1-.4-.2-.6-.1-.2-.7-1.6-1-2.2-.3-.6-.6-.5-.7-.5-.2 0-.4 0-.6 0-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2 3.2 5 4.4.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 2-1.4.2-.6.2-1.2.1-1.3zm-5.5 7.6h-.1c-1.7 0-3.4-.5-4.9-1.3l-.4-.2-3.5.9.9-3.4-.2-.4A9.95 9.95 0 012 12C2 6.5 6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div className="footer-col">
+            <h4>Shop</h4>
+            <ul>
+              <li><a href="#">Helmets</a></li>
+              <li><a href="#">Motor Oils</a></li>
+              <li><a href="#">Tires</a></li>
+              <li><a href="#">Gloves</a></li>
+              <li><a href="#">Jackets</a></li>
+              <li><a href="#">Accessories</a></li>
+            </ul>
+          </div>
+
+          <div className="footer-col">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Our Story</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Press</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+
+          <div className="footer-col">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">Shipping Info</a></li>
+              <li><a href="#">Returns</a></li>
+              <li><a href="#">Track Order</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Warranty</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p className="footer-bottom-left">
+            © 2025 <span>Motorepuestos Mega Mundo</span>. All rights reserved. Todo para tu moto.
+          </p>
+          <div className="footer-bottom-right">
+            <a href="#" onClick={(e) => { e.preventDefault(); setShowTerms(true) }}>Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+          </div>
+        </div>
+      </footer>
+
+      {/* TERMS MODAL */}
+      {showTerms && (
+        <div className="modal-overlay" onClick={() => setShowTerms(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2 className="modal-title">Terms & Conditions</h2>
+              <button className="modal-close" onClick={() => setShowTerms(false)}>×</button>
+            </div>
+            <div className="modal-body">
+              {termsContent}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
