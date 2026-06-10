@@ -59,15 +59,16 @@ const categories = [
   },
 ]
 
+// Precios omitidos temporalmente. Puedes agregarlos añadiendo la propiedad 'price: "$00.00"' a cada objeto en el futuro.
 const products = [
-  { id: 1, brand: 'AGV', name: 'Casco Integral K6 S', price: '$389', badge: 'Más Vendido' },
-  { id: 2, brand: 'Motul', name: 'Aceite 100% Sintético 7100 4T 10W-40', price: '$48', badge: 'Oferta' },
-  { id: 3, brand: 'Michelin', name: 'Llanta Trasera Road 6 GT 180/55', price: '$165', badge: 'Nuevo' },
-  { id: 4, brand: 'Alpinestars', name: 'Guantes de Cuero SP-8 v3 Air', price: '$124', badge: null },
-  { id: 5, brand: 'Dainese', name: 'Chaqueta Tempest 3 D-Dry', price: '$520', badge: 'Destacado' },
-  { id: 6, brand: 'Arai', name: 'Casco Integral RX-7V EVO', price: '$729', badge: null },
-  { id: 7, brand: 'Castrol', name: 'Aceite Power1 Racing 4T 10W-50', price: '$42', badge: 'Oferta' },
-  { id: 8, brand: 'Oxford', name: 'Candado de Cadena 8mm x 1.5m', price: '$59', badge: null },
+  { id: 1, brand: 'LS2', name: 'Casco FF908 Strobe II Sólido Negro Brillo (M)', badge: 'Nuevo' },
+  { id: 2, brand: 'LS2', name: 'Casco FF816 Cosmos Modok Negro Mate Rojo (L)', badge: 'Destacado' },
+  { id: 3, brand: 'LS2', name: 'Casco FF816 Cosmos Sólido Blanco Brillo (L)', badge: null },
+  { id: 4, brand: 'BLD', name: 'Casco M65 Kaptian Negro Pink', badge: 'Oferta' },
+  { id: 5, brand: 'Motul', name: 'Aceite 100% Sintético 7100 4T 10W-40', badge: null },
+  { id: 6, brand: 'Michelin', name: 'Llanta Trasera Road 6 GT 180/55', badge: null },
+  { id: 7, brand: 'Alpinestars', name: 'Guantes de Cuero SP-8 v3 Air', badge: null },
+  { id: 8, brand: 'Dainese', name: 'Chaqueta Tempest 3 D-Dry', badge: null },
 ]
 
 const whyCards = [
@@ -93,7 +94,7 @@ const whyCards = [
   },
 ]
 
-const brands = ['AGV', 'Shoei', 'Arai', 'Dainese', 'Alpinestars', 'Motul', 'Castrol', 'Michelin', 'Bridgestone', 'Oxford', 'Held', 'Rev\'It']
+const brands = ['LS2', 'BLD', 'AGV', 'Shoei', 'Arai', 'Dainese', 'Alpinestars', 'Motul', 'Castrol', 'Michelin', 'Bridgestone', 'Oxford']
 
 const termsContent = (
   <div>
@@ -226,7 +227,8 @@ export default function Landing() {
                 <div className="product-brand">{p.brand}</div>
                 <div className="product-name">{p.name}</div>
                 <div className="product-footer">
-                  <span className="product-price">{p.price}</span>
+                  {/* Se agregó una condición para renderizar el precio solo si existe */}
+                  {p.price && <span className="product-price">{p.price}</span>}
                   <button className="product-add" aria-label="Añadir al carrito">+</button>
                 </div>
               </div>
