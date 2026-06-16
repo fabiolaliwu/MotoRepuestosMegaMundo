@@ -7,3 +7,11 @@ cd megamundo
 npm install
 npm run dev
 ```
+
+
+How sanity was installed:
+
+```
+cd megamundo
+npm create sanity@latest
+```
