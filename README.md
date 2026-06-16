@@ -15,3 +15,10 @@ How sanity was installed:
 cd megamundo
 npm create sanity@latest
 ```
+
+After that, just follow the instructions and set it up by your choice.
+Change the schema and run the following in the terminal:
+```
+cd studio
+npm run dev
+```
