@@ -22,3 +22,9 @@ Change the schema and run the following in the terminal:
 cd studio
 npm run dev
 ```
+
+### Uploading data
+Instead of manually uploading every single product, I'm using google sheet + Make.com + gemini AI.
+
+1. Put every single product in a google sheet. Gemini and Claude were used for this task.
+2. 
