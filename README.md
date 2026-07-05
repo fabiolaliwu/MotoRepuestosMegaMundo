@@ -27,4 +27,4 @@ npm run dev
 Instead of manually uploading every single product, I'm using google sheet + Make.com + gemini AI.
 
 1. Put every single product in a google sheet. Gemini and Claude were used for this task.
-2. 
+2. Send it in Jason form
