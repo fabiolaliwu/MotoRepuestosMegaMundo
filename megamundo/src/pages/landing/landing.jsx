@@ -237,7 +237,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* WHY US */}
       <section className="section why-section">
         <p className="section-label">Por Qué Nos Eligen los Motociclistas</p>
         <h2 className="section-title">CREADO PARA <span>MOTOCICLISTAS</span></h2>
