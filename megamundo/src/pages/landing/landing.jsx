@@ -210,8 +210,7 @@ export default function Landing() {
           ))}
         </div>
       </section>
-
-      {/* FEATURED PRODUCTS */}
+      
       <section className="section">
         <p className="section-label">Selección Cuidadosa</p>
         <h2 className="section-title">PRODUCTOS <span>DESTACADOS</span></h2>
