@@ -4,6 +4,7 @@ This is a website for a business in Costa Rica.
 To run it locally, you hace to clone it first and then
 ```
 cd megamundo
+npm install @sanity/client @sanity/image-url
 npm install
 npm run dev
 ```
@@ -27,6 +28,13 @@ Change the schema and run the following in the terminal:
 cd studio
 npm run dev
 ```
+
+add CORS in sanity through the termnal: 
+```
+cd megamundo/studio
+npx sanity cors add http://localhost:5173 --credentials
+```
+
 
 ### Uploading data
 Instead of manually uploading every single product, I'm using google sheet + Make.com + gemini AI.

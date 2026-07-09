@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { client, urlFor } from '../../client.js'
 import './landing.css'
 import logo from '../../assets/logo.jpeg'
 
@@ -59,18 +60,6 @@ const categories = [
   },
 ]
 
-// Precios omitidos temporalmente. Puedes agregarlos añadiendo la propiedad 'price: "$00.00"' a cada objeto en el futuro.
-const products = [
-  { id: 1, brand: 'LS2', name: 'Casco FF908 Strobe II Sólido Negro Brillo (M)', badge: 'Nuevo' },
-  { id: 2, brand: 'LS2', name: 'Casco FF816 Cosmos Modok Negro Mate Rojo (L)', badge: 'Destacado' },
-  { id: 3, brand: 'LS2', name: 'Casco FF816 Cosmos Sólido Blanco Brillo (L)', badge: null },
-  { id: 4, brand: 'BLD', name: 'Casco M65 Kaptian Negro Pink', badge: 'Oferta' },
-  { id: 5, brand: 'Motul', name: 'Aceite 100% Sintético 7100 4T 10W-40', badge: null },
-  { id: 6, brand: 'Michelin', name: 'Llanta Trasera Road 6 GT 180/55', badge: null },
-  { id: 7, brand: 'Alpinestars', name: 'Guantes de Cuero SP-8 v3 Air', badge: null },
-  { id: 8, brand: 'Dainese', name: 'Chaqueta Tempest 3 D-Dry', badge: null },
-]
-
 const whyCards = [
   {
     title: 'Personal Experto',
@@ -123,6 +112,15 @@ const termsContent = (
 
 export default function Landing() {
   const [showTerms, setShowTerms] = useState(false)
+  const [products, setProducts] = useState([]) 
+
+  useEffect(() => {
+    client.fetch('*[_type == "product"]')
+      .then((data) => {
+        setProducts(data)
+      })
+      .catch(console.error)
+  }, [])
 
   return (
     <>
@@ -210,24 +208,32 @@ export default function Landing() {
           ))}
         </div>
       </section>
-      
+
       <section className="section">
         <p className="section-label">Selección Cuidadosa</p>
         <h2 className="section-title">PRODUCTOS <span>DESTACADOS</span></h2>
         <p className="section-subtitle">El equipo mejor valorado de las marcas de motocicletas más confiables del mundo.</p>
         <div className="products-grid">
           {products.map((p) => (
-            <div key={p.id} className="product-card">
+            <div key={p._id} className="product-card">
               <div className="product-image">
                 {p.badge && <span className="product-badge">{p.badge}</span>}
-                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                
+                {p.image ? (
+                  <img 
+                    src={urlFor(p.image).width(400).url()} 
+                    alt={p.name} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                )}
               </div>
               <div className="product-info">
                 <div className="product-brand">{p.brand}</div>
                 <div className="product-name">{p.name}</div>
                 <div className="product-footer">
-                  {/* Se agregó una condición para renderizar el precio solo si existe */}
-                  {p.price && <span className="product-price">{p.price}</span>}
+                  {p.price && <span className="product-price">${p.price}</span>}
                   <button className="product-add" aria-label="Añadir al carrito">+</button>
                 </div>
               </div>
