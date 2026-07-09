@@ -16,6 +16,11 @@ cd megamundo
 npm create sanity@latest
 ```
 
+Install sanity image helper: 
+```
+npm install @sanity/image-url
+```
+
 After that, just follow the instructions and set it up by your choice.
 Change the schema and run the following in the terminal:
 ```
