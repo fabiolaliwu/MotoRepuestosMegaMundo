@@ -14,19 +14,23 @@ export default {
       of: [{
         type: 'object',
         fields: [
-          { 
-            name: 'color', 
-            title: 'Color', 
-            type: 'string',
-            options: { list: ['Negro', 'Blanco', 'Rojo', 'Azul', 'Gris', 'Mate'] } 
-          },
-          { 
-            name: 'size', 
-            title: 'Size', 
-            type: 'string',
-            options: { list: ['S', 'M', 'L', 'XL', 'XXL'] } 
-          },
-          { name: 'image', title: 'Image', type: 'image' }
+        { 
+          name: 'color', 
+          title: 'Color', 
+          type: 'string',
+          options: { list: ['Negro', 'Blanco', 'Rojo', 'Azul', 'Gris', 'Mate'] } 
+        },
+        { 
+          name: 'sizes', // Changed from 'size' to 'sizes' (plural)
+          title: 'Available Sizes', 
+          type: 'array', // This must be 'array' for checkboxes to work
+          of: [{ type: 'string' }], 
+          options: { 
+            list: ['S', 'M', 'L', 'XL', 'XXL'],
+            layout: 'checkbox'
+          }
+        },
+        { name: 'image', title: 'Image', type: 'image' }
         ]
       }]
     }
