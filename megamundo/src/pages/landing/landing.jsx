@@ -238,42 +238,34 @@ export default function Landing() {
         {/* PRODUCTS GRID */}
         <div className="products-grid">
           {products.map((p) => (
-            <div key={p._id} className="product-card">
-              <div className="product-image">
-                {p.badge && <span className="product-badge">{p.badge}</span>}
-                
-                {p.image ? (
-                  <img 
-                    src={urlFor(p.image).width(400).url()} 
-                    alt={p.name} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
-                ) : (
-                  <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-                )}
-              </div>
-              <div className="product-info">
-                <div className="product-brand">{p.brand?.name}</div>
-                <div className="product-name">{p.name}</div>
-                
-                <div className="product-specifics" style={{ fontSize: '0.85rem', color: '#666', margin: '4px 0 12px 0' }}>
-                  {p.productType === 'casco' && p.helmetSize && (
-                    <div>Tallas: {p.helmetSize.join(', ')}</div>
-                  )}
-                  {p.productType === 'aceite' && p.oilViscosity && (
-                    <div>Viscosidad: {p.oilViscosity} | {p.oilVolume}</div>
-                  )}
-                  {p.productType === 'guante' && p.gloveMaterial && (
-                    <div>Material: {p.gloveMaterial}</div>
+            p.variants?.map((v, index) => (
+              <div key={`${p._id}-${index}`} className="product-card">
+                <div className="product-image">
+                  {v.image ? (
+                    <img src={urlFor(v.image).width(400).url()} alt={`${p.name} ${v.color}`} />
+                  ) : (
+                    <div className="placeholder">No Image</div>
                   )}
                 </div>
+                <div className="product-info">
+                  <div className="product-brand">{p.brand?.name}</div>
+                  <div className="product-name">{p.name} - {v.color}</div>
+                  
+                  {/* These are your new visual tags */}
+                  <div className="product-tags">
+                    <span>{v.color}</span>
+                    {v.sizes?.map((s) => (
+                      <span key={s}>{s}</span>
+                    ))}
+                  </div>
 
-                <div className="product-footer">
-                  {p.price && <span className="product-price">₡{p.price}</span>}
-                  <button className="product-add" aria-label="Añadir al carrito">+</button>
+                  <div className="product-footer">
+                    <span className="product-price">₡{p.price}</span>
+                    <button className="product-add">+</button>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))
           ))}
         </div>
       </section>

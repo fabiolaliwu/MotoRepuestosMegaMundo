@@ -934,3 +934,23 @@ body {
   .footer { padding: 48px 24px 0; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
 }
+
+/* ── PRODUCT TAGS ── */
+.product-tags { 
+  display: flex; 
+  gap: 8px; 
+  margin: 8px 0; 
+  flex-wrap: wrap; 
+}
+
+.product-tags span { 
+  font-size: 10px; 
+  padding: 2px 8px; 
+  background: var(--light-gray); 
+  border-radius: 4px; 
+  text-transform: uppercase;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  color: var(--text-mid);
+  border: 1px solid var(--gray);
+}
