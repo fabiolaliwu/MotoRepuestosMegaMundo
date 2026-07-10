@@ -17,6 +17,7 @@ function slugify(text) {
 export default function Catalogo() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     const query = '*[_type == "product"] | order(name asc) { ..., brand-> }'
@@ -141,6 +142,7 @@ export default function Catalogo() {
                             key={`${p._id}-${index}`} 
                             product={p} 
                             variant={v} 
+                            onClick={setSelectedProduct}
                         />
                         ))
                     )}
@@ -219,6 +221,16 @@ export default function Catalogo() {
           </div>
         </div>
       </footer>
+        {selectedProduct && (
+        <div className="modal-overlay" onClick={() => setSelectedProduct(null)}>
+          <div className="modal product-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setSelectedProduct(null)}>×</button>
+            <h2>{selectedProduct.product.name}</h2>
+            <p>{selectedProduct.product.description}</p>
+            <span className="price">₡{selectedProduct.product.price}</span>
+          </div>
+        </div>
+      )}
     </>
   )
 }

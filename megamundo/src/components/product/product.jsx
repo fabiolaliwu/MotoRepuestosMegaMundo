@@ -17,24 +17,26 @@ const ImageSlider = ({ images }) => {
   );
 };
 
-export default function Product({ product, variant }) {
+export default function Product({ product, variant, onClick }) {
   return (
-    <div className="product-card">
-      <div className="product-image">
-        {variant?.images?.length > 0 ? <ImageSlider images={variant.images} /> : <div className="placeholder">Sin Imagen</div>}
-      </div>
-      <div className="product-info">
-        <div className="product-brand">{product.brand?.name}</div>
-        <div className="product-name">{product.name} - {variant?.color}</div>
-        <div className="product-tags">
-          {variant?.color && <span>{variant.color}</span>}
-          {variant?.sizes?.map((size) => <span key={size}>{size}</span>)}
+    <div className="product-card" onClick={() => onClick({ product, variant })}>
+        <div className="product-card">
+        <div className="product-image">
+            {variant?.images?.length > 0 ? <ImageSlider images={variant.images} /> : <div className="placeholder">Sin Imagen</div>}
         </div>
-        <div className="product-footer">
-          <span className="product-price">₡{product.price}</span>
-          <button className="product-add">+</button>
+        <div className="product-info">
+            <div className="product-brand">{product.brand?.name}</div>
+            <div className="product-name">{product.name} - {variant?.color}</div>
+            <div className="product-tags">
+            {variant?.color && <span>{variant.color}</span>}
+            {variant?.sizes?.map((size) => <span key={size}>{size}</span>)}
+            </div>
+            <div className="product-footer">
+            <span className="product-price">₡{product.price}</span>
+            <button className="product-add">+</button>
+            </div>
         </div>
-      </div>
+        </div>
     </div>
   );
 }
