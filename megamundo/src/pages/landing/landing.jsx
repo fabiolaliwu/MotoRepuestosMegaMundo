@@ -115,7 +115,10 @@ export default function Landing() {
   const [products, setProducts] = useState([]) 
 
   useEffect(() => {
-    client.fetch('*[_type == "product"]')
+    // The "brand->" tells Sanity to fetch the actual brand document, not just the ID link
+    const query = '*[_type == "product"] { ..., brand-> }';
+    
+    client.fetch(query)
       .then((data) => {
         setProducts(data)
       })
@@ -213,6 +216,8 @@ export default function Landing() {
         <p className="section-label">Selección Cuidadosa</p>
         <h2 className="section-title">PRODUCTOS <span>DESTACADOS</span></h2>
         <p className="section-subtitle">El equipo mejor valorado de las marcas de motocicletas más confiables del mundo.</p>
+        
+        {/* UPDATED PRODUCTS GRID WITH REFERENCED BRANDS AND CONDITIONAL FIELDS */}
         <div className="products-grid">
           {products.map((p) => (
             <div key={p._id} className="product-card">
@@ -230,10 +235,25 @@ export default function Landing() {
                 )}
               </div>
               <div className="product-info">
-                <div className="product-brand">{p.brand}</div>
+                {/* Render the brand name from the referenced document safely */}
+                <div className="product-brand">{p.brand?.name}</div>
                 <div className="product-name">{p.name}</div>
+                
+                {/* Conditionally render specific fields based on the Product Type */}
+                <div className="product-specifics" style={{ fontSize: '0.85rem', color: '#666', margin: '4px 0 12px 0' }}>
+                  {p.productType === 'casco' && p.helmetSize && (
+                    <div>Tallas: {p.helmetSize.join(', ')}</div>
+                  )}
+                  {p.productType === 'aceite' && p.oilViscosity && (
+                    <div>Viscosidad: {p.oilViscosity} | {p.oilVolume}</div>
+                  )}
+                  {p.productType === 'guante' && p.gloveMaterial && (
+                    <div>Material: {p.gloveMaterial}</div>
+                  )}
+                </div>
+
                 <div className="product-footer">
-                  {p.price && <span className="product-price">${p.price}</span>}
+                  {p.price && <span className="product-price">₡{p.price}</span>}
                   <button className="product-add" aria-label="Añadir al carrito">+</button>
                 </div>
               </div>

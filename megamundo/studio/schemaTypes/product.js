@@ -38,7 +38,7 @@ export default {
       title: 'Helmet Sizes Available',
       type: 'array',
       of: [{ type: 'string' }],
-      options: { list: ['S', 'M', 'L', 'XL'] },
+      options: { list: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'XXXXL'] },
       // This magically hides the field if the productType is NOT 'casco'
       hidden: ({ document }) => document?.productType !== 'casco'
     },
