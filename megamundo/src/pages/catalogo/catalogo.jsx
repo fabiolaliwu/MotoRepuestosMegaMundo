@@ -3,6 +3,7 @@ import { client, urlFor } from '../../client.js'
 import '../landing/landing.css'
 import './catalogo.css'
 import logo from '../../assets/logo.jpeg'
+import Product from '../../components/product/product.jsx';
 
 function slugify(text) {
   return text
@@ -134,36 +135,15 @@ export default function Catalogo() {
               {/* RIGHT PAGE: products grid, same card format as landing */}
               <div className="page page-right">
                 <div className="catalog-grid">
-                  {items.map((p) =>
-                    (p.variants && p.variants.length > 0 ? p.variants : [null]).map((v, index) => (
-                      <div key={`${p._id}-${index}`} className="product-card">
-                        <div className="product-image">
-                          {v?.image ? (
-                            <img
-                              src={urlFor(v.image).width(400).url()}
-                              alt={`${p.name}${v.color ? ' ' + v.color : ''}`}
-                            />
-                          ) : (
-                            <div className="placeholder">Sin Imagen</div>
-                          )}
-                        </div>
-                        <div className="product-info">
-                          <div className="product-brand">{p.brand?.name}</div>
-                          <div className="product-name">
-                            {p.name}{v?.color ? ` - ${v.color}` : ''}
-                          </div>
-                          <div className="product-tags">
-                            {v?.color && <span>{v.color}</span>}
-                            {v?.size && <span>{v.size}</span>}
-                          </div>
-                          <div className="product-footer">
-                            <span className="product-price">₡{p.price}</span>
-                            <button className="product-add">+</button>
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                  )}
+                    {items.map((p) =>
+                        (p.variants?.length > 0 ? p.variants : [null]).map((v, index) => (
+                        <Product 
+                            key={`${p._id}-${index}`} 
+                            product={p} 
+                            variant={v} 
+                        />
+                        ))
+                    )}
                 </div>
                 <div className="page-folio">— Pág. {String(i * 2 + 2).padStart(2, '0')} —</div>
               </div>

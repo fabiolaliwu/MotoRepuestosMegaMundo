@@ -6,7 +6,7 @@ export default {
     { name: 'name', title: 'Product Name', type: 'string' },
     { name: 'price', title: 'Price', type: 'number' },
     { name: 'brand', title: 'Brand', type: 'reference', to: [{ type: 'brand' }] },
-    
+    { name: 'description', title: 'Description', type: 'string' }, 
     {
       name: 'variants',
       title: 'Product Variants',
