@@ -5,6 +5,7 @@ To run it locally, you hace to clone it first and then
 ```
 cd megamundo
 npm install @sanity/client @sanity/image-url
+npm install react-router-dom
 npm install
 npm run dev
 ```

@@ -1,0 +1,337 @@
+/* ── CATALOGO: book-styled catalog page ──
+   Reuses design tokens, fonts and component classes from landing.css
+   (imported alongside this file) so navbar, footer, buttons and
+   product cards render identically to the landing page. Everything
+   below is layout unique to the "book" presentation. */
+
+/* ── COVER ── */
+.catalog-cover {
+  min-height: 60vh;
+  background: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 140px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.catalog-cover::before {
+  content: 'CATÁLOGO';
+  position: absolute;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 260px;
+  color: rgba(255, 255, 255, 0.03);
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.catalog-cover .hero-eyebrow {
+  justify-content: center;
+  color: var(--red);
+}
+
+.catalog-cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 9vw, 108px);
+  line-height: 0.95;
+  letter-spacing: 2px;
+  color: var(--white);
+  margin: 16px 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.catalog-cover-title span {
+  color: var(--red);
+}
+
+.catalog-cover-sub {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0 auto 28px;
+  position: relative;
+  z-index: 2;
+}
+
+.catalog-cover-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  position: relative;
+  z-index: 2;
+}
+
+.catalog-cover-meta .dot {
+  color: var(--red);
+}
+
+/* ── TABLE OF CONTENTS ── */
+.catalog-index {
+  background: var(--off-white);
+  padding: 64px 48px;
+  border-bottom: 1px solid var(--gray);
+}
+
+.catalog-index .section-label {
+  justify-content: center;
+}
+
+.index-list {
+  list-style: none;
+  max-width: 760px;
+  margin: 24px auto 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.index-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 4px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--gray);
+  color: var(--text-dark);
+  transition: color 0.2s;
+}
+
+.index-list a:hover {
+  color: var(--red);
+}
+
+.index-list a:hover .index-page {
+  color: var(--red);
+}
+
+.index-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.index-dots {
+  flex: 1;
+  border-bottom: 2px dotted var(--gray);
+  margin-bottom: 6px;
+}
+
+.index-page {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  color: var(--text-light);
+  min-width: 28px;
+  text-align: right;
+}
+
+/* ── BOOK ── */
+.catalog-book {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 72px 48px 120px;
+}
+
+.catalog-loading {
+  text-align: center;
+  padding: 80px 24px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+/* Each brand = one two-page spread */
+.spread {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  background: var(--white);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.16), 0 6px 18px rgba(0, 0, 0, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 72px;
+  scroll-margin-top: 96px;
+}
+
+/* book spine / gutter shadow between pages */
+.spread::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 42.5%;
+  width: 30px;
+  margin-left: -15px;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.18),
+    rgba(0, 0, 0, 0.03) 25%,
+    rgba(0, 0, 0, 0.03) 75%,
+    rgba(0, 0, 0, 0.18)
+  );
+  z-index: 5;
+  pointer-events: none;
+}
+
+.page {
+  position: relative;
+  padding: 56px;
+}
+
+/* page-curl corner cue */
+.page::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 22px 22px;
+  border-color: transparent transparent rgba(0, 0, 0, 0.08) transparent;
+}
+
+.page-left {
+  background: var(--text-dark);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.page-index-num {
+  position: absolute;
+  top: -10px;
+  right: 16px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 180px;
+  color: rgba(255, 255, 255, 0.05);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.page-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.page-brand-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 0.95;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 2;
+  word-break: break-word;
+}
+
+.page-brand-count {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+  max-width: 320px;
+  position: relative;
+  z-index: 2;
+}
+
+.page-right {
+  background: var(--off-white);
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.catalog-grid .product-card {
+  background: var(--white);
+}
+
+.page-folio {
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--text-light);
+}
+
+.page-left .page-folio {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+@media (max-width: 900px) {
+  .spread {
+    grid-template-columns: 1fr;
+  }
+  .spread::before {
+    display: none;
+  }
+  .page {
+    padding: 40px 28px 56px;
+  }
+  .page-left {
+    align-items: center;
+    text-align: center;
+    padding-top: 48px;
+  }
+  .page-brand-count {
+    max-width: 100%;
+  }
+  .catalog-book {
+    padding: 56px 20px 80px;
+  }
+  .catalog-index {
+    padding: 48px 20px;
+  }
+  .catalog-cover {
+    padding: 120px 20px 64px;
+  }
+}

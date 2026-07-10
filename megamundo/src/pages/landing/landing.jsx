@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { client, urlFor } from '../../client.js'
+import { Link } from 'react-router-dom'
 import './landing.css'
 import logo from '../../assets/logo.jpeg'
 import megamundoImg from '../../assets/megamundo.jpeg'
@@ -158,7 +159,7 @@ export default function Landing() {
           </p>
           <div className="hero-buttons">
             <a href="#" className="btn-primary">Ver Todos los Productos</a>
-            <a href="#" className="btn-secondary">Ver Catálogo</a>
+            <Link to="/catalogo" className="btn-secondary">Ver Catálogo</Link>
           </div>
         </div>
 

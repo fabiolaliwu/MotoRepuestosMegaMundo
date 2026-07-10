@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Landing from './pages/landing/landing.jsx'
 import Catalogo from './pages/catalogo/catalogo.jsx'
 
