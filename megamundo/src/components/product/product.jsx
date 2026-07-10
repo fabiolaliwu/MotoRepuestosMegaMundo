@@ -27,10 +27,6 @@ export default function Product({ product, variant, onClick }) {
         <div className="product-info">
             <div className="product-brand">{product.brand?.name}</div>
             <div className="product-name">{product.name} - {variant?.color}</div>
-            <div className="product-tags">
-            {variant?.color && <span>{variant.color}</span>}
-            {variant?.sizes?.map((size) => <span key={size}>{size}</span>)}
-            </div>
             <div className="product-footer">
             <span className="product-price">₡{product.price}</span>
             <button className="product-add">+</button>
