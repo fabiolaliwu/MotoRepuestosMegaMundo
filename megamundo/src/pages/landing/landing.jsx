@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { client, urlFor } from '../../client.js'
 import './landing.css'
 import logo from '../../assets/logo.jpeg'
+import megamundoImg from '../../assets/megamundo.jpeg'
 
 const categories = [
   {
@@ -115,7 +116,7 @@ export default function Landing() {
   const [products, setProducts] = useState([]) 
 
   useEffect(() => {
-    // The "brand->" tells Sanity to fetch the actual brand document, not just the ID link
+    // Fetch products and expand the brand reference
     const query = '*[_type == "product"] { ..., brand-> }';
     
     client.fetch(query)
@@ -143,8 +144,10 @@ export default function Landing() {
       </nav>
 
       {/* HERO */}
-      <section className="hero">
-        <div className="hero-content">
+      <section className="hero" style={{ position: 'relative', overflow: 'hidden' }}>
+        
+        {/* Left Content Area - Positioned above the image */}
+        <div className="hero-content" style={{ position: 'relative', zIndex: 2 }}>
           <p className="hero-eyebrow">Todo para tu moto</p>
           <h1>
             EQUÍPATE.<br />
@@ -159,14 +162,29 @@ export default function Landing() {
           </div>
         </div>
 
-        <div className="hero-image-area">
-          <svg viewBox="0 0 200 200" style={{ width: '60%', maxWidth: 320, fill: 'rgba(255,255,255,0.12)' }}>
-            <circle cx="100" cy="100" r="90" stroke="rgba(255,255,255,0.2)" strokeWidth="3" fill="none"/>
-            <circle cx="100" cy="100" r="60" stroke="rgba(255,255,255,0.15)" strokeWidth="2" fill="none"/>
-            <circle cx="100" cy="100" r="30" fill="rgba(255,255,255,0.1)"/>
-            <path d="M100 10 L100 190 M10 100 L190 100 M29 29 L171 171 M171 29 L29 171" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
-          </svg>
-          <div className="hero-badge">
+        {/* Right Image Area - Positioned absolutely to fill the remaining space */}
+        <div className="hero-image-area" style={{ 
+          position: 'absolute', 
+          top: 0, 
+          right: 0, 
+          width: '55%', 
+          height: '100%', 
+          zIndex: 1 
+        }}>
+          {/* Full bleed background image */}
+          <img 
+            src={megamundoImg} 
+            alt="Motorepuestos Mega Mundo" 
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'cover',
+              objectPosition: 'center',
+              display: 'block'
+            }} 
+          />
+          {/* Badge overlay on top of the image */}
+          <div className="hero-badge" style={{ position: 'absolute', bottom: '10%', right: '10%', zIndex: 3 }}>
             <span className="hero-badge-num">+15</span>
             <span className="hero-badge-text">Años de<br/>Servicio</span>
           </div>
@@ -217,7 +235,7 @@ export default function Landing() {
         <h2 className="section-title">PRODUCTOS <span>DESTACADOS</span></h2>
         <p className="section-subtitle">El equipo mejor valorado de las marcas de motocicletas más confiables del mundo.</p>
         
-        {/* UPDATED PRODUCTS GRID WITH REFERENCED BRANDS AND CONDITIONAL FIELDS */}
+        {/* PRODUCTS GRID */}
         <div className="products-grid">
           {products.map((p) => (
             <div key={p._id} className="product-card">
@@ -235,11 +253,9 @@ export default function Landing() {
                 )}
               </div>
               <div className="product-info">
-                {/* Render the brand name from the referenced document safely */}
                 <div className="product-brand">{p.brand?.name}</div>
                 <div className="product-name">{p.name}</div>
                 
-                {/* Conditionally render specific fields based on the Product Type */}
                 <div className="product-specifics" style={{ fontSize: '0.85rem', color: '#666', margin: '4px 0 12px 0' }}>
                   {p.productType === 'casco' && p.helmetSize && (
                     <div>Tallas: {p.helmetSize.join(', ')}</div>
