@@ -262,14 +262,20 @@
   z-index: 2;
 }
 
-.page-right {
-  background: var(--off-white);
+.page.page-right {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensure it matches the left page height */
+  overflow: hidden; /* Prevent expansion */
 }
 
 .catalog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  gap: 16px;
+  overflow-y: auto; /* This creates the scroll bar within the page */
+  flex-grow: 1;    /* Takes up remaining space */
+  padding-bottom: 20px;
 }
 
 .catalog-grid .product-card {

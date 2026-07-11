@@ -5,6 +5,7 @@ export default {
   fields: [
     { name: 'name', title: 'Product Name', type: 'string' },
     { name: 'price', title: 'Price', type: 'number' },
+    { name: 'category', type: 'reference', to: [{ type: 'category' }] },
     { name: 'brand', title: 'Brand', type: 'reference', to: [{ type: 'brand' }] },
     { name: 'description', title: 'Description', type: 'string' }, 
     {
@@ -18,7 +19,7 @@ export default {
           name: 'color', 
           title: 'Color', 
           type: 'string',
-          options: { list: ['Negro', 'Blanco', 'Rojo', 'Azul', 'Gris', 'Mate'] } 
+          options: { list: ['Negro', 'Negro Matte','Blanco', 'Rojo', 'Azul', 'Gris', 'Mate'] } 
         },
         { 
           name: 'sizes', 
