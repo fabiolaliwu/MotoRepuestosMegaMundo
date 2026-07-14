@@ -231,6 +231,21 @@ export default function Catalogo() {
           </div>
         </div>
       )}
+      {selectedProduct && (
+        <div className="modal-overlay" onClick={() => setSelectedProduct(null)}>
+            <div className="modal product-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setSelectedProduct(null)}>×</button>
+            <h2>{selectedProduct.product.name}</h2>
+            <p>{selectedProduct.product.description}</p>
+            <span className="price">
+                {selectedProduct.variant.samePriceForAll 
+                ? `₡${selectedProduct.variant.price}` 
+                : `₡${Math.min(...selectedProduct.variant.sizePricing.map(p => p.price))} - ₡${Math.max(...selectedProduct.variant.sizePricing.map(p => p.price))}`
+                }
+            </span>
+            </div>
+        </div>
+        )}
     </>
   )
 }

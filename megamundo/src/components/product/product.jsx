@@ -18,6 +18,18 @@ const ImageSlider = ({ images }) => {
 };
 
 export default function Product({ product, variant, onClick }) {
+    //find the lowest price
+    const getLowestPrice = () => {
+    if (variant.samePriceForAll) {
+      return variant.price;
+    }
+    if (variant.sizePricing && variant.sizePricing.length > 0) {
+      return Math.min(...variant.sizePricing.map(p => p.price));
+    }
+    return 0;
+  };
+
+  const lowestPrice = getLowestPrice();
   return (
     <div className="product-card" onClick={() => onClick({ product, variant })}>
         <div className="product-card">
@@ -28,7 +40,7 @@ export default function Product({ product, variant, onClick }) {
             <div className="product-brand">{product.brand?.name}</div>
             <div className="product-name">{product.name} - {variant?.color}</div>
             <div className="product-footer">
-            <span className="product-price">₡{product.price}</span>
+            <span className="product-price">₡{lowestPrice}</span>
             <button className="product-add">+</button>
             </div>
         </div>
