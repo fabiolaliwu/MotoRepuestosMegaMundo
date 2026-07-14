@@ -1,9 +1,17 @@
+import category from './category'
+
 export default {
   name: 'product',
   title: 'Product',
   type: 'document',
   fields: [
     { name: 'name', title: 'Product Name', type: 'string' },
+    { 
+      name: 'category', 
+      title: 'Category', 
+      type: 'reference', 
+      to: [{ type: 'category' }] 
+    },
     { name: 'brand', title: 'Brand', type: 'reference', to: [{ type: 'brand' }] },
     { name: 'description', title: 'Description', type: 'string' },
     {
