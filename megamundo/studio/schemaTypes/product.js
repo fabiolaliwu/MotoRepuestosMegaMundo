@@ -41,7 +41,7 @@ export default {
             of: [{
               type: 'object',
               fields: [
-                { name: 'size', type: 'string', options: { list: ['S', 'M', 'L', 'XL', 'XXL'] } },
+                { name: 'size', type: 'string', options: { list: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'XXXXL'] } },
                 { name: 'price', type: 'number' }
               ]
             }]
