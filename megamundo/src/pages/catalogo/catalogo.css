@@ -380,3 +380,246 @@
 .slider-btn.prev { left: 10px; }
 .slider-btn.next { right: 10px; }
 .product-image { position: relative; } /* Ensure this exists */
+
+
+/* ── PRODUCT MODAL ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+}
+
+.product-modal {
+  background: var(--white);
+  border-radius: 3px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--off-white);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text-dark);
+  z-index: 10;
+  transition: color 0.2s, background 0.2s;
+}
+
+.modal-close:hover {
+  color: var(--white);
+  background: var(--red);
+}
+
+.product-modal-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* ── LEFT: IMAGES ── */
+.product-modal-images {
+  background: var(--off-white);
+  padding: 56px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--gray);
+}
+
+.product-modal-main-image {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  border: 1px solid var(--gray);
+}
+
+.product-modal-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 16px;
+}
+
+.product-modal-thumbs {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.thumb-btn {
+  width: 56px;
+  height: 56px;
+  padding: 4px;
+  background: var(--white);
+  border: 1.5px solid var(--gray);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.thumb-btn.active {
+  border-color: var(--red);
+}
+
+.thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ── RIGHT: INFO ── */
+.product-modal-info {
+  padding: 56px 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-modal-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+
+.product-modal-info h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(24px, 2.6vw, 34px);
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+  overflow-wrap: break-word;
+}
+
+.product-modal-description {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-light);
+  margin-bottom: 24px;
+}
+
+.product-modal-sizes label {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.size-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.size-btn {
+  padding: 8px 16px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: var(--white);
+  border: 1.5px solid var(--gray);
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.size-btn:hover {
+  border-color: var(--text-dark);
+}
+
+.size-btn.active {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.product-modal-price {
+  margin-bottom: 24px;
+}
+
+.product-modal-price .price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(22px, 2.4vw, 32px);
+  letter-spacing: 0.5px;
+  color: var(--text-dark);
+  overflow-wrap: break-word;
+}
+
+.product-modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.qty-input {
+  width: 60px;
+  text-align: center;
+  border: 1.5px solid var(--gray);
+  background: var(--white);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+}
+
+.add-to-cart-btn {
+  flex: 1;
+  padding: 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: var(--red);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.add-to-cart-btn:hover {
+  opacity: 0.85;
+}
+
+@media (max-width: 700px) {
+  .product-modal-body {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  min-height: 560px;
+}
+  .product-modal-images {
+    border-right: none;
+    border-bottom: 1px solid var(--gray);
+    padding: 32px 24px;
+  }
+  .product-modal-info {
+  padding: 64px 40px;
+  display: flex;
+  flex-direction: column;
+}
+}

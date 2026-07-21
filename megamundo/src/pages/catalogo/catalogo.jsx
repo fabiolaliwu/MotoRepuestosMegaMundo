@@ -18,6 +18,9 @@ export default function Catalogo() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const query = '*[_type == "product"] | order(name asc) { ..., brand-> }'
@@ -47,6 +50,45 @@ export default function Catalogo() {
     (sum, p) => sum + (p.variants?.length ? p.variants.length : 1),
     0
   )
+
+  const openProduct = (data) => {
+    setSelectedProduct(data)
+    setSelectedImageIndex(0)
+    setQuantity(1)
+    if (data.variant?.samePriceForAll) {
+      setSelectedSize(null)
+    } else if (data.variant?.sizePricing?.length > 0) {
+      setSelectedSize(data.variant.sizePricing[0])
+    } else {
+      setSelectedSize(null)
+    }
+  }
+
+  const closeProduct = () => setSelectedProduct(null)
+
+  const getCurrentPrice = () => {
+    if (!selectedProduct) return 0
+    const { variant } = selectedProduct
+    if (variant.samePriceForAll) return variant.price
+    if (selectedSize) return selectedSize.price
+    if (variant.sizePricing?.length > 0) return Math.min(...variant.sizePricing.map(p => p.price))
+    return 0
+  }
+
+  const handleAddToCart = () => {
+    const { product, variant } = selectedProduct
+    const item = {
+      productId: product._id,
+      name: product.name,
+      color: variant.color,
+      size: selectedSize?.size || null,
+      price: getCurrentPrice(),
+      quantity,
+      image: variant.images?.[0],
+    }
+    // TODO: replace with real cart logic once you have a cart store
+    console.log('Add to cart:', item)
+  }
 
   return (
     <>
@@ -142,7 +184,7 @@ export default function Catalogo() {
                             key={`${p._id}-${index}`} 
                             product={p} 
                             variant={v} 
-                            onClick={setSelectedProduct}
+                            onClick={openProduct}
                         />
                         ))
                     )}
@@ -221,31 +263,82 @@ export default function Catalogo() {
           </div>
         </div>
       </footer>
-        {selectedProduct && (
-        <div className="modal-overlay" onClick={() => setSelectedProduct(null)}>
+
+      {selectedProduct && (
+        <div className="modal-overlay" onClick={closeProduct}>
           <div className="modal product-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelectedProduct(null)}>×</button>
-            <h2>{selectedProduct.product.name}</h2>
-            <p>{selectedProduct.product.description}</p>
-            <span className="price">₡{selectedProduct.product.price}</span>
+            <button className="modal-close" onClick={closeProduct}>×</button>
+
+            <div className="product-modal-body">
+              <div className="product-modal-images">
+                <div className="product-modal-main-image">
+                  {selectedProduct.variant?.images?.length > 0 ? (
+                    <img
+                      src={urlFor(selectedProduct.variant.images[selectedImageIndex]).width(500).url()}
+                      alt={selectedProduct.product.name}
+                    />
+                  ) : (
+                    <div className="placeholder">Sin Imagen</div>
+                  )}
+                </div>
+                {selectedProduct.variant?.images?.length > 1 && (
+                  <div className="product-modal-thumbs">
+                    {selectedProduct.variant.images.map((img, i) => (
+                      <button
+                        key={i}
+                        className={`thumb-btn ${i === selectedImageIndex ? 'active' : ''}`}
+                        onClick={() => setSelectedImageIndex(i)}
+                      >
+                        <img src={urlFor(img).width(80).url()} alt="" />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="product-modal-info">
+                <div className="product-modal-brand">{selectedProduct.product.brand?.name}</div>
+                <h2>{selectedProduct.product.name} — {selectedProduct.variant?.color}</h2>
+                <p className="product-modal-description">{selectedProduct.product.description}</p>
+
+                {!selectedProduct.variant.samePriceForAll && selectedProduct.variant.sizePricing?.length > 0 && (
+                  <div className="product-modal-sizes">
+                    <label>Volumen / Talla</label>
+                    <div className="size-options">
+                      {selectedProduct.variant.sizePricing.map((sp) => (
+                        <button
+                          key={sp.size}
+                          className={`size-btn ${selectedSize?.size === sp.size ? 'active' : ''}`}
+                          onClick={() => setSelectedSize(sp)}
+                        >
+                          {sp.size}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="product-modal-price">
+                  <span className="price">₡{getCurrentPrice()}</span>
+                </div>
+
+                <div className="product-modal-actions">
+                  <input
+                    type="number"
+                    min="1"
+                    value={quantity}
+                    onChange={(e) => setQuantity(Math.max(1, Number(e.target.value)))}
+                    className="qty-input"
+                  />
+                  <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                    Agregar al carrito
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
-      {selectedProduct && (
-        <div className="modal-overlay" onClick={() => setSelectedProduct(null)}>
-            <div className="modal product-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelectedProduct(null)}>×</button>
-            <h2>{selectedProduct.product.name}</h2>
-            <p>{selectedProduct.product.description}</p>
-            <span className="price">
-                {selectedProduct.variant.samePriceForAll 
-                ? `₡${selectedProduct.variant.price}` 
-                : `₡${Math.min(...selectedProduct.variant.sizePricing.map(p => p.price))} - ₡${Math.max(...selectedProduct.variant.sizePricing.map(p => p.price))}`
-                }
-            </span>
-            </div>
-        </div>
-        )}
     </>
   )
 }
