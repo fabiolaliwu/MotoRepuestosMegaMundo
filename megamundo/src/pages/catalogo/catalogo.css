@@ -608,18 +608,18 @@
 
 @media (max-width: 700px) {
   .product-modal-body {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  min-height: 560px;
-}
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    min-height: 560px;
+  }
   .product-modal-images {
     border-right: none;
     border-bottom: 1px solid var(--gray);
     padding: 32px 24px;
   }
   .product-modal-info {
-  padding: 64px 40px;
-  display: flex;
-  flex-direction: column;
-}
+    padding: 64px 40px;
+    display: flex;
+    flex-direction: column;
+  }
 }
