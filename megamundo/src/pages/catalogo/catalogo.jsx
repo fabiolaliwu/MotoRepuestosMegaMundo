@@ -164,7 +164,6 @@ export default function Catalogo() {
               id={`brand-${slugify(brandName)}`}
               className="spread"
             >
-              {/* LEFT PAGE: chapter intro */}
               <div className="page page-left">
                 <span className="page-index-num">{String(i + 1).padStart(2, '0')}</span>
                 <p className="page-eyebrow">Capítulo {i + 1}</p>
@@ -175,7 +174,6 @@ export default function Catalogo() {
                 <div className="page-folio">— Pág. {String(i * 2 + 1).padStart(2, '0')} —</div>
               </div>
 
-              {/* RIGHT PAGE: products grid, same card format as landing */}
               <div className="page page-right">
                 <div className="catalog-grid">
                     {items.map((p) =>
