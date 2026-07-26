@@ -86,13 +86,11 @@ export default function Catalogo() {
       quantity,
       image: variant.images?.[0],
     }
-    // TODO: replace with real cart logic once you have a cart store
     console.log('Add to cart:', item)
   }
 
   return (
     <>
-      {/* NAVBAR */}
       <nav className="navbar">
         <div className="navbar-logo">
           <a href="/">
@@ -144,7 +142,6 @@ export default function Catalogo() {
         </section>
       )}
 
-      {/* BOOK BODY */}
       <div className="catalog-book">
         {loading && <p className="catalog-loading">Cargando catálogo...</p>}
 
@@ -194,7 +191,6 @@ export default function Catalogo() {
         })}
       </div>
 
-      {/* FOOTER */}
       <footer className="footer">
         <div className="footer-grid">
           <div className="footer-brand">
