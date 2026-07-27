@@ -105,7 +105,6 @@ export default function Catalogo() {
         </ul>
       </nav>
 
-      {/* BOOK COVER */}
       <section className="catalog-cover">
         <p className="hero-eyebrow">Edición 2026</p>
         <h1 className="catalog-cover-title">
@@ -124,7 +123,6 @@ export default function Catalogo() {
         )}
       </section>
 
-      {/* TABLE OF CONTENTS */}
       {!loading && brandGroups.length > 0 && (
         <section className="catalog-index">
           <p className="section-label">Índice</p>
