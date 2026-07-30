@@ -129,7 +129,6 @@ export default function Landing() {
 
   return (
     <>
-      {/* NAVBAR */}
       <nav className="navbar">
         <div className="navbar-logo">
           <img src={logo} alt="Motorepuestos Mega Mundo" />
@@ -147,7 +146,6 @@ export default function Landing() {
       {/* HERO */}
       <section className="hero" style={{ position: 'relative', overflow: 'hidden' }}>
         
-        {/* Left Content Area - Positioned above the image */}
         <div className="hero-content" style={{ position: 'relative', zIndex: 2 }}>
           <p className="hero-eyebrow">Todo para tu moto</p>
           <h1>
@@ -184,7 +182,6 @@ export default function Landing() {
               display: 'block'
             }} 
           />
-          {/* Badge overlay on top of the image */}
           <div className="hero-badge" style={{ position: 'absolute', bottom: '10%', right: '10%', zIndex: 3 }}>
             <span className="hero-badge-num">+15</span>
             <span className="hero-badge-text">Años de<br/>Servicio</span>
@@ -192,7 +189,6 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* STATS */}
       <div className="stats-bar">
         <div className="stat-item">
           <div className="stat-num">+5,000</div>
@@ -215,7 +211,6 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* CATEGORIES */}
       <section className="section categories-section">
         <p className="section-label">Explorar por Categoría</p>
         <h2 className="section-title">ENCUENTRA LO QUE <span>NECESITAS</span></h2>
